@@ -36,6 +36,9 @@ description: Call Claude Code CLI for coding tasks — write, refactor, review, 
 
 ## 超时设定
 
-- 所有 `claude` 命令的 exec 超时设为 **3600 秒（1 小时）**
-- `timeout` 参数传入 `3600`，`yieldMs` 用默认值
-- subagent 的 `runTimeoutSeconds` 也设为 **3600**
+- **永不超时** — exec / subagent 不设 `timeout`，`runTimeoutSeconds` 设为 0 或省略，让 Claude Code 跑到自然结束
+- **10 分钟进度汇报** — 启动 `claude` 后设定循环汇报机制：
+  - 用 `process` poll + cron wake（每 10 分钟弹一次提醒）或 spawn + `sessions_yield` 等推送
+  - 每 10 分钟检查一次进度（文件改动、日志输出、进程状态）
+  - **把当前进度直接转发给用户**："改了 XX 文件，还差 YY，仍在跑～"
+  - Claude Code 结束后发最终结果
