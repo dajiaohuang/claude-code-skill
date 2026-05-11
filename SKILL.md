@@ -33,3 +33,9 @@ description: Call Claude Code CLI for coding tasks — write, refactor, review, 
 | 规划模式 | `claude -p "plan: 需求..."` | 先规划再实现 |
 | 审查代码 | `claude -p "审查 <file>"` | 代码审查 |
 | 批量任务 | spawn subagent | 通过 subagent 调起，避免阻塞主会话 |
+
+## 超时设定
+
+- 所有 `claude` 命令的 exec 超时设为 **3600 秒（1 小时）**
+- `timeout` 参数传入 `3600`，`yieldMs` 用默认值
+- subagent 的 `runTimeoutSeconds` 也设为 **3600**
